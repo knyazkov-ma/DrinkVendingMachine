@@ -178,6 +178,17 @@
     <Compile Include="DAL\DbContext.cs" />
     <Compile Include="DAL\DbContextInstaller.cs" />
     <Compile Include="DataService\DataServiceInstaller.cs" />
+    <Compile Include="DataService\Interface\IShoppingСartService.cs" />
+    <Compile Include="DataService\ShoppingСartService.cs" />
+    <Compile Include="DTO\CoinDTO.cs" />
+    <Compile Include="DTO\ShowcaseDrinkDTO.cs" />
+    <Compile Include="DTO\SurrenderCoinDTO.cs" />
+    <Compile Include="Entity\BaseEntity.cs" />
+    <Compile Include="Entity\Coin.cs" />
+    <Compile Include="Entity\Drink.cs" />
+    <Compile Include="Entity\DrinkBalance.cs" />
+    <Compile Include="Entity\PaymentCoin.cs" />
+    <Compile Include="Entity\SelectedDrink.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -230,9 +241,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DAL\Mapping\" />
-    <Folder Include="DataService\Interface\" />
-    <Folder Include="DTO\" />
-    <Folder Include="Entity\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
