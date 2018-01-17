@@ -174,6 +174,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ShoppingСartController.cs" />
     <Compile Include="DAL\DbContext.cs" />
@@ -184,6 +185,8 @@
     <Compile Include="DAL\Mapping\DrinkMapping.cs" />
     <Compile Include="DAL\Mapping\CoinMapping.cs" />
     <Compile Include="DataService\DataServiceInstaller.cs" />
+    <Compile Include="DataService\AdminService.cs" />
+    <Compile Include="DataService\Interface\IAdminService.cs" />
     <Compile Include="DataService\Interface\IImageService.cs" />
     <Compile Include="DataService\Interface\IShoppingСartService.cs" />
     <Compile Include="DataService\ImageService.cs" />
@@ -246,6 +249,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\ShoppingСart\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -253,7 +257,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <PropertyGroup>

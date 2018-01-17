@@ -1,11 +1,9 @@
-﻿using DrinkVendingMachine.Aspects;
-using DrinkVendingMachine.DAL;
+﻿using DrinkVendingMachine.DAL;
 using DrinkVendingMachine.DataService.Interface;
 using System.Linq;
 
 namespace DrinkVendingMachine.DataService
 {
-    [Transaction]
     public class ImageService : IImageService
     {
         private readonly DbContext dbContext;
