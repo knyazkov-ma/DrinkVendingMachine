@@ -6,7 +6,7 @@
     public class Drink: BaseEntity
     {
         /// <summary>
-        /// Цена
+        /// Цена в руб.
         /// </summary>
         public decimal Cost { get; set; }
 
@@ -14,7 +14,7 @@
         /// Изображение
         /// </summary>
         public byte[] Image { get; set; }
-
+                
         public int Ord { get; set; }
 
     }

@@ -1,7 +1,7 @@
 ﻿namespace DrinkVendingMachine.Entity
 {
     /// <summary>
-    /// Номиналы монеты
+    /// Номиналы монеты в коп.
     /// </summary>
     public enum CoinDenomination
     {

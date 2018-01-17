@@ -174,13 +174,22 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\ShoppingСartController.cs" />
     <Compile Include="DAL\DbContext.cs" />
     <Compile Include="DAL\DbContextInstaller.cs" />
+    <Compile Include="DAL\Mapping\SelectedDrinkMapping.cs" />
+    <Compile Include="DAL\Mapping\PaymentCoinMapping.cs" />
+    <Compile Include="DAL\Mapping\DrinkBalanceMapping.cs" />
+    <Compile Include="DAL\Mapping\DrinkMapping.cs" />
+    <Compile Include="DAL\Mapping\CoinMapping.cs" />
     <Compile Include="DataService\DataServiceInstaller.cs" />
+    <Compile Include="DataService\Interface\IImageService.cs" />
     <Compile Include="DataService\Interface\IShoppingСartService.cs" />
+    <Compile Include="DataService\ImageService.cs" />
     <Compile Include="DataService\ShoppingСartService.cs" />
     <Compile Include="DTO\CoinDTO.cs" />
+    <Compile Include="DTO\ImageFileDTO.cs" />
     <Compile Include="DTO\ShowcaseDrinkDTO.cs" />
     <Compile Include="DTO\SurrenderCoinDTO.cs" />
     <Compile Include="Entity\BaseEntity.cs" />
@@ -196,6 +205,7 @@
     <Compile Include="Migration\Items\0001\InitialDeployment.cs" />
     <Compile Include="Migration\MigrationRunner.cs" />
     <Compile Include="Migration\MigratorInstaller.cs" />
+    <Compile Include="Models\ShoppingСartModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -209,7 +219,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Migration\Items\0001\create-database.sql" />
+    <EmbeddedResource Include="Migration\Items\0001\create-database.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -235,14 +245,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\ShoppingСart\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DAL\Mapping\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

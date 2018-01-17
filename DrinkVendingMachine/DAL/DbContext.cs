@@ -1,5 +1,9 @@
 ﻿using DrinkVendingMachine.Entity;
 using System.Data.Entity;
+using System.Reflection;
+using System.Linq;
+using System;
+using System.Data.Entity.ModelConfiguration;
 
 namespace DrinkVendingMachine.DAL
 {
@@ -18,11 +22,17 @@ namespace DrinkVendingMachine.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Coin>().ToTable("Coin");
-            modelBuilder.Entity<Drink>().ToTable("Drink");
-            modelBuilder.Entity<DrinkBalance>().ToTable("DrinkBalance");
-            modelBuilder.Entity<PaymentCoin>().ToTable("PaymentCoin");
-            modelBuilder.Entity<SelectedDrink>().ToTable("SelectedDrink");
+            var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
+                 .Where(type => !String.IsNullOrEmpty(type.Namespace))
+                 .Where(type => type.BaseType != null && type.BaseType.IsGenericType
+                     && type.BaseType.GetGenericTypeDefinition() == typeof(EntityTypeConfiguration<>));
+            foreach (var type in typesToRegister)
+            {
+                dynamic configurationInstance = Activator.CreateInstance(type);
+                modelBuilder.Configurations.Add(configurationInstance);
+            }
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

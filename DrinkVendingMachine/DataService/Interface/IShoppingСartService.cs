@@ -10,8 +10,10 @@ namespace DrinkVendingMachine.DataService.Interface
         void Pay(long coinId);
         IEnumerable<CoinDTO> GetCoins();
         IEnumerable<ShowcaseDrinkDTO> GetShowcaseDrinks();
-        decimal GetShoppingСartTotalPayment();
+        int GetShoppingСartTotalPayment();
         decimal GetShoppingСartTotalCost();
-        IEnumerable<SurrenderCoinDTO> Purchase();
+        IEnumerable<SurrenderCoinDTO> GetSurrender(int surrender, IEnumerable<int> notLockCoins);
+        IEnumerable<SurrenderCoinDTO> GetSurrender();
+        void Purchase();        
     }
 }

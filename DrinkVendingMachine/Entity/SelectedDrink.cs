@@ -3,7 +3,7 @@
     /// <summary>
     /// Выбранный напиток
     /// </summary>
-    public class SelectedDrink
+    public class SelectedDrink : BaseEntity
     {
         public long DrinkId { get; set; }
     }
