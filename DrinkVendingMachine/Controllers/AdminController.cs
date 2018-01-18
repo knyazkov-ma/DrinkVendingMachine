@@ -7,7 +7,7 @@ using System.IO;
 
 namespace DrinkVendingMachine.Controllers
 {
-
+    [Authorize]
     public class AdminController : BaseController
     {
         private readonly IAdminService adminService;
