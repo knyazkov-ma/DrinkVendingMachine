@@ -64,6 +64,10 @@
       <HintPath>..\packages\FluentMigrator.Runner.1.6.2\lib\40\FluentMigrator.Runner.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -208,6 +212,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ShoppingСartController.cs" />
@@ -218,6 +223,9 @@
     <Compile Include="DAL\Mapping\PaymentCoinMapping.cs" />
     <Compile Include="DAL\Mapping\DrinkMapping.cs" />
     <Compile Include="DAL\Mapping\CoinMapping.cs" />
+    <Compile Include="DataService\BaseService.cs" />
+    <Compile Include="DataService\Common\DataServiceException.cs" />
+    <Compile Include="DataService\Common\DataServiceInfo.cs" />
     <Compile Include="DataService\DataServiceInstaller.cs" />
     <Compile Include="DataService\AdminService.cs" />
     <Compile Include="DataService\AdminUserService.cs" />
@@ -264,10 +272,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\DrinkVendingMachine.mdf" />
-    <Content Include="App_Data\DrinkVendingMachine_log.ldf">
-      <DependentUpon>DrinkVendingMachine.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />

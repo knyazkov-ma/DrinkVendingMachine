@@ -7,7 +7,7 @@
 
     @foreach (var coin in Model.Coins)
     {
-        <div class="col-md-3">
+        <div class="col-md-3" style="text-align: center">
 
             <h1>@coin.Denomination</h1>
             
@@ -26,11 +26,20 @@
 <div class="row">
     <div class="col-md-4"><h1>Оплачено: @((decimal)Model.ShoppingСartTotalPayment / 100)</h1></div>
     <div class="col-md-4"><h1>Стоимость: @Model.ShoppingСartTotalCost</h1></div>
-    <div class="col-md-4"><h1>Сдача (монеты):</h1>
-    @foreach (var s in Model.Surrender)
-    {
-        <div><h2>@s.Denomination (@s.Count)</h2></div>
-    }
+    <div class="col-md-4">
+        @if (Model.CanbeSurrender)
+        {
+            <h1>Сдача (монеты):</h1>
+            foreach (var s in Model.Surrender)
+            {
+                <div><h2>@s.Denomination (@s.Count)</h2></div>
+            }
+        }
+        else
+        {
+            <h1 style="color:red">Автомат не может выдать сдачу</h1>
+        }
+
     </div>
 </div>
 
@@ -73,7 +82,7 @@
 
         @using (@Html.BeginForm("Purchase", "ShoppingСart", FormMethod.Post))
         {
-            if (Model.ShoppingСartTotalPayment > 0 && Model.ShoppingСartTotalCost > 0)
+            if (Model.ShoppingСartTotalPayment > 0 && Model.ShoppingСartTotalCost > 0 && Model.CanbeSurrender)
             {
                 <button class="btn btn-primary" type="submit">@Resource.Action_Purchase</button>
             }

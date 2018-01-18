@@ -10,17 +10,19 @@
         
         @using (@Html.BeginForm("Drink", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            @Html.ValidationSummary("", new { @class = "text-danger" })
+            @Html.ValidationMessage("ErrorGeneralMessage")
             @Html.AntiForgeryToken()
             
             <div class="form-group">
                 @Html.LabelFor(m => m.Cost)
                 @Html.TextBoxFor(m => m.Cost, new { @class = "form-control", required = true, autofocus = true })
+                @Html.ValidationMessageFor(m => m.Cost)
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(m => m.Count)
                 @Html.TextBoxFor(m => m.Count, new { @class = "form-control", required = true, @type = "number" })
+                @Html.ValidationMessageFor(m => m.Count)
             </div>
 
             <div class="form-group">

@@ -1,4 +1,5 @@
 ﻿using DrinkVendingMachine.DTO;
+using DrinkVendingMachine.Entity;
 using System.Collections.Generic;
 
 namespace DrinkVendingMachine.DataService.Interface
@@ -12,8 +13,8 @@ namespace DrinkVendingMachine.DataService.Interface
         IEnumerable<ShowcaseDrinkDTO> GetDrinks();
         int GetShoppingСartTotalPayment();
         decimal GetShoppingСartTotalCost();
-        IEnumerable<SurrenderCoinDTO> GetSurrender(int surrender, IEnumerable<int> notLockCoins);
-        IEnumerable<SurrenderCoinDTO> GetSurrender();
+        bool GetSurrender(int surrender, IEnumerable<Coin> coins, ref IList<SurrenderCoinDTO> surrenderCoins);
+        bool GetSurrender(ref IList<SurrenderCoinDTO> surrenderCoins);
         void Purchase();        
     }
 }

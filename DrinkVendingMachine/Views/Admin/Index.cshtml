@@ -32,7 +32,7 @@
             <div class="thumbnail">
                 <img style="width: 300px; max-width:300px" src="@Url.Action( "GetImageFile", "Image", new { drinkId = drink.Id } )">
                 <div class="caption">
-                    <h3>Цена: @drink.Cost, Кол-во: @drink.Count</h3>
+                    <h3><span style="margin: 10px">Цена: @drink.Cost</span> <span style="margin: 10px">Кол-во: @drink.Count</span></h3>
                     <p>
                         <span>Сортировка: @drink.Ord</span>
                     </p>

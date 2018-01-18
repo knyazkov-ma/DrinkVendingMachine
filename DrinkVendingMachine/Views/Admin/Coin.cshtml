@@ -10,7 +10,6 @@
         
         @using (@Html.BeginForm("Coin", "Admin", FormMethod.Post))
         {
-            @Html.ValidationSummary("", new { @class = "text-danger" })
             @Html.AntiForgeryToken()
             
             
@@ -18,6 +17,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.Count)
                 @Html.TextBoxFor(m => m.Count, new { @class = "form-control", required = true, @type = "number" })
+                @Html.ValidationMessageFor(m => m.Count)
             </div>
 
             <div class="form-group">

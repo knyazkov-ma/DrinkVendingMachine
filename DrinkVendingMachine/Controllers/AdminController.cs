@@ -8,7 +8,7 @@ using System.IO;
 namespace DrinkVendingMachine.Controllers
 {
 
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         private readonly IAdminService adminService;
 
@@ -60,9 +60,20 @@ namespace DrinkVendingMachine.Controllers
                     image = binaryReader.ReadBytes(fileUpload.ContentLength);
                 }
             }
+
+            if (execute(delegate ()
+             {
+                 adminService.SaveDrink(dto, image);
+             }))
+            {
+                return View("Index", getAdminModel());
+            }
+            else
+            {
+                return View(model);
+            };
+
             
-            adminService.SaveDrink(dto, image);
-            return View("Index", getAdminModel());
         }
 
         public ActionResult DeleteDrink(long id)
@@ -93,9 +104,20 @@ namespace DrinkVendingMachine.Controllers
                 Lock = model.Lock,
                 Denomination = model.Denomination
             };
+                        
+            if (execute(delegate ()
+             {
+                 adminService.UpdateCoin(dto);
+             }))
+            {
+                return View("Index", getAdminModel());
+            }
+            else
+            {
+                return View(model);
+            };
 
-            adminService.UpdateCoin(dto);
-            return View("Index", getAdminModel());
+            
         }
         
     }

@@ -1,5 +1,6 @@
 ﻿using DrinkVendingMachine.Aspects;
 using DrinkVendingMachine.DAL;
+using DrinkVendingMachine.DataService.Common;
 using DrinkVendingMachine.DataService.Interface;
 using DrinkVendingMachine.DTO;
 using DrinkVendingMachine.Entity;
@@ -9,7 +10,7 @@ using System.Linq;
 namespace DrinkVendingMachine.DataService
 {
     [Transaction]
-    public class AdminService : IAdminService
+    public class AdminService : BaseService, IAdminService
     {
         private readonly DbContext dbContext;
         public AdminService(DbContext dbContext)
@@ -50,6 +51,16 @@ namespace DrinkVendingMachine.DataService
 
         public void SaveDrink(DrinkDTO dto, byte[] image)
         {
+            if (dto.Id == 0 && (image == null || !image.Any()))
+                throw new DataServiceException("Требуется прикрепить файл изображения");
+
+            if (dto.Cost <= 0)
+                setErrorMessages("Cost", "Значение должно быть положительным числом");
+
+            if (errorMessages.Count > 0)
+                throw new DataServiceException("Не верно заполненные поля формы", errorMessages);
+
+
             Drink entity = null;
             if (dto.Id == 0)
             {

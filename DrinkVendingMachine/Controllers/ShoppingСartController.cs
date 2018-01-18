@@ -1,10 +1,12 @@
 ﻿using DrinkVendingMachine.DataService.Interface;
+using DrinkVendingMachine.DTO;
 using DrinkVendingMachine.Models;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace DrinkVendingMachine.Controllers
 {
-    public class ShoppingСartController : Controller
+    public class ShoppingСartController : BaseController
     {
         private readonly IShoppingСartService shoppingСartService;
         public ShoppingСartController(IShoppingСartService shoppingСartService)
@@ -14,13 +16,18 @@ namespace DrinkVendingMachine.Controllers
 
         private ShoppingСartModel getShoppingСartModel()
         {
+            IList<SurrenderCoinDTO> surrender = new List<SurrenderCoinDTO>();
+            bool canbeSurrender = shoppingСartService.GetSurrender(ref surrender);
+
             return new ShoppingСartModel(
                 shoppingСartService.GetDrinks(),
                 shoppingСartService.GetCoins(),
-                shoppingСartService.GetSurrender(),
+                surrender,
+                canbeSurrender,
                 shoppingСartService.GetShoppingСartTotalPayment(),
                 shoppingСartService.GetShoppingСartTotalCost()
                 );
+
         }
 
         public ActionResult Index()
