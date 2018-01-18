@@ -123,6 +123,9 @@
   <data name="Action_Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
+  <data name="Action_Purchase" xml:space="preserve">
+    <value>Купить</value>
+  </data>
   <data name="Action_Save" xml:space="preserve">
     <value>Сохранить</value>
   </data>

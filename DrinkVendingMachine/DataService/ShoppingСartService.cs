@@ -28,7 +28,10 @@ namespace DrinkVendingMachine.DataService
         {
             var selectedDrink = dbContext.SelectedDrinks.FirstOrDefault(d => d.DrinkId == drinkId);
             if (selectedDrink == null)
+            {
+                selectedDrink = new SelectedDrink { DrinkId = drinkId };
                 dbContext.SelectedDrinks.Add(selectedDrink);
+            }
             else
                 dbContext.SelectedDrinks.Remove(selectedDrink);
 
@@ -66,7 +69,10 @@ namespace DrinkVendingMachine.DataService
 
         public IEnumerable<ShowcaseDrinkDTO> GetDrinks()
         {
-            decimal shoppingСartTotalPayment = GetShoppingСartTotalPayment();
+            int shoppingСartTotalPayment = GetShoppingСartTotalPayment();
+            int shoppingСartTotalCost = (int)Math.Round(GetShoppingСartTotalCost() * 100); //в коп.;
+
+            int diff = shoppingСartTotalPayment - shoppingСartTotalCost;
 
             IEnumerable<ShowcaseDrinkDTO> drinks =
                 (from d in dbContext.Drinks.Where(t => t.Count > 0).OrderBy(t => t.Ord)
@@ -79,7 +85,7 @@ namespace DrinkVendingMachine.DataService
                      Cost = d.Cost,
                      Count = d.Count,
                      Selected = p != null,
-                     CanbeSelected = d.Cost <= shoppingСartTotalPayment
+                     CanbeSelected = (p == null && d.Cost * 100 <= diff)
                  }).ToList();
 
             return drinks;
@@ -100,28 +106,33 @@ namespace DrinkVendingMachine.DataService
 
         }
 
-        public IEnumerable<SurrenderCoinDTO> GetSurrender(int surrender, IEnumerable<int> notLockCoins)
+        public IEnumerable<SurrenderCoinDTO> GetSurrender(int surrender, IEnumerable<int> coins)
         {
             IList<SurrenderCoinDTO> surrenderCoins = new List<SurrenderCoinDTO>();
+
+            if (surrender == 0)
+                return surrenderCoins;
 
             //размен сделаем жадным способом
             int tail = 0;
             int head = surrender;
-            foreach (var denomination in notLockCoins)
+            foreach (var denomination in coins)
             {
                 int mod = head % denomination;
 
                 tail = head - mod;
-                surrenderCoins.Add(new SurrenderCoinDTO
-                {
-                    Count = tail / denomination,
-                    Denomination = denomination
-                });
+                int count = tail / denomination;
+                if(count > 0)
+                    surrenderCoins.Add(new SurrenderCoinDTO
+                    {
+                        Count = count,
+                        Denomination = denomination
+                    });
 
                 if (mod == 0)
                     return surrenderCoins;
 
-                head = tail;
+                head = mod;
             }
 
             return surrenderCoins;
@@ -131,15 +142,18 @@ namespace DrinkVendingMachine.DataService
         {
             int shoppingСartTotalPayment = GetShoppingСartTotalPayment();
             int shoppingСartTotalCost = (int)Math.Round(GetShoppingСartTotalCost() * 100); //в коп.;
+
+            if(shoppingСartTotalCost == 0)
+                return new List<SurrenderCoinDTO>();
+
             int surrender = shoppingСartTotalPayment - shoppingСartTotalCost;
 
-            IEnumerable<int> notLockCoins = dbContext.Coins
-                    .Where(t => !t.Lock)
+            IEnumerable<int> coins = dbContext.Coins
                     .OrderByDescending(t => t.Denomination)
                     .Select(t => (int)t.Denomination)
                     .ToList();
 
-            return GetSurrender(surrender, notLockCoins);
+            return GetSurrender(surrender, coins);
         }
         [Transaction]
         public void Purchase()
@@ -148,7 +162,7 @@ namespace DrinkVendingMachine.DataService
             int shoppingСartTotalCost = (int)Math.Round(GetShoppingСartTotalCost() * 100); //в коп.;
             int surrender = shoppingСartTotalPayment - shoppingСartTotalCost;
 
-            foreach (var s in dbContext.SelectedDrinks)
+            foreach (var s in dbContext.SelectedDrinks.ToList())
             {
                 var d = dbContext.Drinks.FirstOrDefault(r => r.Id == s.DrinkId);
                 d.Count--;
@@ -156,14 +170,13 @@ namespace DrinkVendingMachine.DataService
                         
             if (surrender > 0)
             {
-                IEnumerable<Coin> notLockCoins = dbContext.Coins
-                    .Where(t => !t.Lock)
+                IEnumerable<Coin> coins = dbContext.Coins
                     .OrderByDescending(t => t.Denomination)
                     .ToList();
 
-                var surrenderCoins = GetSurrender(surrender, notLockCoins.Select(t => (int)t.Denomination));
+                var surrenderCoins = GetSurrender(surrender, coins.Select(t => (int)t.Denomination));
 
-                foreach (var c in notLockCoins)
+                foreach (var c in coins)
                 {
                     SurrenderCoinDTO surrenderCoin = surrenderCoins.FirstOrDefault(t => t.Denomination == (int)c.Denomination);
                     if (surrenderCoin != null)

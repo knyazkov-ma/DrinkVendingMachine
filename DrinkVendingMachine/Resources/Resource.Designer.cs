@@ -79,6 +79,15 @@ namespace DrinkVendingMachine.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Купить.
+        /// </summary>
+        public static string Action_Purchase {
+            get {
+                return ResourceManager.GetString("Action_Purchase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Сохранить.
         /// </summary>
         public static string Action_Save {

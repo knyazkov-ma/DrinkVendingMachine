@@ -14,6 +14,7 @@ namespace DrinkVendingMachine
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "ShoppingСart", action = "Index", id = UrlParameter.Optional }
             );
+            
         }
     }
 }

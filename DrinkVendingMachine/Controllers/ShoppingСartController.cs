@@ -28,18 +28,16 @@ namespace DrinkVendingMachine.Controllers
             shoppingСartService.Init();
             return View(getShoppingСartModel());
         }
-
-        [HttpPost]
-        public ActionResult SelectDrink(long drinkId)
+                
+        public ActionResult SelectDrink(long id)
         {
-            shoppingСartService.SelectDrink(drinkId);
+            shoppingСartService.SelectDrink(id);
             return View("Index", getShoppingСartModel());
         }
-
-        [HttpPost]
-        public ActionResult Pay(long coinId)
+                
+        public ActionResult Pay(long id)
         {
-            shoppingСartService.Pay(coinId);
+            shoppingСartService.Pay(id);
             return View("Index", getShoppingСartModel());
         }
 

@@ -1,31 +1,85 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
+﻿@using DrinkVendingMachine.Models
+@using DrinkVendingMachine.Resources
+@model ShoppingСartModel
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="row">
+    <h1>Оплата:</h1>
+
+    @foreach (var coin in Model.Coins)
+    {
+        <div class="col-md-3">
+
+            <h1>@coin.Denomination</h1>
+            
+            @if (!coin.Lock)
+            {
+                <div>@Html.ActionLink("Оплатить", "Pay", "ShoppingСart", new { id = coin.Id }, null)</div>
+            }
+            else
+            {
+                <div>@Resource.Label_Lock</div>
+            }
+
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-md-4"><h1>Оплачено: @((decimal)Model.ShoppingСartTotalPayment / 100)</h1></div>
+    <div class="col-md-4"><h1>Стоимость: @Model.ShoppingСartTotalCost</h1></div>
+    <div class="col-md-4"><h1>Сдача (монеты):</h1>
+    @foreach (var s in Model.Surrender)
+    {
+        <div><h2>@s.Denomination (@s.Count)</h2></div>
+    }
+    </div>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <h1>Напитки:</h1>
+
+    @foreach (var drink in Model.Drinks)
+    {
+
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail" style="background-color: @if (drink.Selected) { <text>greenyellow</text> }">
+                <img style="width: 300px; max-width:300px" src="@Url.Action( "GetImageFile", "Image", new { drinkId = drink.Id } )">
+                <div class="caption">
+                    <h3>Цена: @drink.Cost, Кол-во: @drink.Count</h3>
+                    <p>
+                        @if (Model.ShoppingСartTotalPayment > 0)
+                        {
+                            if (drink.CanbeSelected)
+                            {
+                                @Html.ActionLink("Выбрать", "SelectDrink", "ShoppingСart", new { id = drink.Id }, null)
+                            }
+                            else if(drink.Selected)
+                            {
+                                @Html.ActionLink("Отменить", "SelectDrink", "ShoppingСart", new { id = drink.Id }, null)
+                            }
+                        }
+                        
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-8">
+
+        @using (@Html.BeginForm("Purchase", "ShoppingСart", FormMethod.Post))
+        {
+            if (Model.ShoppingСartTotalPayment > 0 && Model.ShoppingСartTotalCost > 0)
+            {
+                <button class="btn btn-primary" type="submit">@Resource.Action_Purchase</button>
+            }
+        }
     </div>
 </div>
+
+
+
