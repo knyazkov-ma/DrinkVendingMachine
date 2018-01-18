@@ -1,6 +1,4 @@
-﻿using DrinkVendingMachine.DTO;
-using DrinkVendingMachine.Resources;
-using System.Collections.Generic;
+﻿using DrinkVendingMachine.Resources;
 using System.ComponentModel.DataAnnotations;
 
 namespace DrinkVendingMachine.Models

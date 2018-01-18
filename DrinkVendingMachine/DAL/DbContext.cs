@@ -18,7 +18,8 @@ namespace DrinkVendingMachine.DAL
         public DbSet<Drink> Drinks { get; set; }
         public DbSet<PaymentCoin> PaymentCoins { get; set; }
         public DbSet<SelectedDrink> SelectedDrinks { get; set; }
-
+        public DbSet<AdminUser> AdminUsers { get; set; }
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()

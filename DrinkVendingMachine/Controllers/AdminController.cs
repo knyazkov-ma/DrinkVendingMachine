@@ -2,12 +2,12 @@
 using DrinkVendingMachine.DTO;
 using DrinkVendingMachine.Models;
 using System.Web.Mvc;
-using System.Linq;
 using System.Web;
 using System.IO;
 
 namespace DrinkVendingMachine.Controllers
 {
+
     public class AdminController : Controller
     {
         private readonly IAdminService adminService;

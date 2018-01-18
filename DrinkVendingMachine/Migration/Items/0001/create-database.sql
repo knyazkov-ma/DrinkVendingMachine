@@ -40,6 +40,18 @@ CREATE TABLE [dbo].[SelectedDrink](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+CREATE TABLE [dbo].[AdminUser](
+	[Id] [bigint] NOT NULL,
+	[Password] [varchar](50) NOT NULL,
+	[UserName] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_AdminUser] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+insert into AdminUser(Id, Password, UserName) values(1, 'adminpassword', 'admin')
+
 SET IDENTITY_INSERT [dbo].[Coin] ON 
 INSERT [dbo].[Coin] ([Id], [Denomination], [Count], [Lock]) VALUES (100000, 1, 20, 0)
 INSERT [dbo].[Coin] ([Id], [Denomination], [Count], [Lock]) VALUES (100001, 2, 20, 0)

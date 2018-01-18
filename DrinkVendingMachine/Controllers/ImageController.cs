@@ -1,8 +1,4 @@
 ﻿using DrinkVendingMachine.DataService.Interface;
-using System;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Web.Mvc;
 
 namespace DrinkVendingMachine.Controllers
