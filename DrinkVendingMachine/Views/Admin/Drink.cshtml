@@ -1,0 +1,65 @@
+﻿@using DrinkVendingMachine.Models
+@using DrinkVendingMachine.Resources
+@model DrinkModel
+
+
+<div class="row">
+    <h1>Напиток @if (Model.Id == 0) { <text>[новый]</text> } else {<text>[редактирование]</text>}</h1>
+    
+    <div class="col-md-8">
+        
+        @using (@Html.BeginForm("Drink", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            @Html.AntiForgeryToken()
+            
+            <div class="form-group">
+                @Html.LabelFor(m => m.Cost)
+                @Html.TextBoxFor(m => m.Cost, new { @class = "form-control", required = true, autofocus = true })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Count)
+                @Html.TextBoxFor(m => m.Count, new { @class = "form-control", required = true, @type = "number" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Ord)
+                @Html.TextBoxFor(m => m.Ord, new { @class = "form-control", required = true, @type = "number" })
+            </div>
+
+            if (Model.Id > 0)
+            {
+                <div class="form-group">
+                    <img style="width: 300px; max-width:300px" src="@Url.Action( "GetImageFile", "Image", new { drinkId = Model.Id } )">
+                </div>
+            }
+
+
+
+            <div class="form-group">
+                <label>@if (Model.Id == 0) { <text>Файл изображения</text> } else {<text>Новый файл изображения</text>}</label>
+                <input type="file" name="fileUpload" />
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                   
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary" type="submit">@Resource.Action_Save</button>
+                    
+                    @if (Model.Id > 0)
+                    {
+                        <a class="btn btn-default" href="@Url.Action("DeleteDrink", "Admin",new { id = Model.Id })">@Resource.Action_Delete</a>
+                    } 
+
+                    <a class="btn btn-default" href="@Url.Action("Index", "Admin")">@Resource.Action_Cancel</a>
+                </div>
+            </div>
+
+        }
+
+    </div>
+</div>

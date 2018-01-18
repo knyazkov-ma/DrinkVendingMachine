@@ -16,22 +16,10 @@ namespace DrinkVendingMachine.Controllers
             this.imageService = imageService;
         }
 
-        public HttpResponseMessage GetImageFile(long drinkId)
+        public ActionResult GetImageFile(long drinkId)
         {
             var imageBody = imageService.GetImageBody(drinkId);
-            var result = new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new ByteArrayContent(imageBody)
-            };
-            result.Content.Headers.ContentDisposition =
-                new ContentDispositionHeaderValue("attachment")
-                {
-                    FileName = String.Format("file{0}.png", drinkId),
-                    Size = imageBody.Length
-                };
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-
-            return result;
+            return new FileStreamResult(new System.IO.MemoryStream(imageBody), "image/jpeg");
         }
     }
 }

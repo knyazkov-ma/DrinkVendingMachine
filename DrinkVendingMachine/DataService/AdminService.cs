@@ -25,7 +25,8 @@ namespace DrinkVendingMachine.DataService
                             {
                                 Id = d.Id,
                                 Cost = d.Cost,
-                                Count = d.Count
+                                Count = d.Count,
+                                Ord = d.Ord
                             })
                 .ToList();
 
@@ -33,12 +34,16 @@ namespace DrinkVendingMachine.DataService
 
         public DrinkDTO GetDrink(long id)
         {
+            if (id == 0)
+                return new DrinkDTO { Count = 10 };
+
             return dbContext.Drinks
                 .Select(d => new DrinkDTO
                             {
                                 Id = d.Id,
                                 Cost = d.Cost,
-                                Count = d.Count
+                                Count = d.Count,
+                                Ord = d.Ord
                             })
                 .FirstOrDefault(t => t.Id == id);
         }
@@ -59,7 +64,9 @@ namespace DrinkVendingMachine.DataService
             entity.Cost = dto.Cost;
             entity.Count = dto.Count;
             entity.Ord = dto.Ord;
-            entity.Image = image;
+
+            if(image != null)
+                entity.Image = image;
 
             dbContext.SaveChanges();
         }
@@ -68,6 +75,7 @@ namespace DrinkVendingMachine.DataService
         {
             Drink entity = dbContext.Drinks.FirstOrDefault(t => t.Id == id);
             dbContext.Drinks.Remove(entity);
+            dbContext.SaveChanges();
         }
 
         public IEnumerable<CoinDTO> GetCoins()
@@ -97,16 +105,13 @@ namespace DrinkVendingMachine.DataService
                 .FirstOrDefault(t => t.Id == id);
         }
 
-        public void UpdateCoins(CoinDTO[] dtos)
+        public void UpdateCoin(CoinDTO dto)
         {
-            foreach (var dto in dtos)
-            {
-                Coin entity = dbContext.Coins.FirstOrDefault(t => t.Id == dto.Id); ;
+            Coin entity = dbContext.Coins.FirstOrDefault(t => t.Id == dto.Id);
 
-                entity.Count = dto.Count;
-                entity.Lock = dto.Lock;
-            }
-            
+            entity.Count = dto.Count;
+            entity.Lock = dto.Lock;
+
             dbContext.SaveChanges();
         }
 

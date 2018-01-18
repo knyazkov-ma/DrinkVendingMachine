@@ -11,6 +11,6 @@ namespace DrinkVendingMachine.DataService.Interface
         void DeleteDrink(long id);
         IEnumerable<CoinDTO> GetCoins();
         CoinDTO GetCoin(long id);
-        void UpdateCoins(CoinDTO[] dtos);
+        void UpdateCoin(CoinDTO dto);
     }
 }

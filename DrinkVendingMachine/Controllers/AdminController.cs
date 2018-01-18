@@ -3,6 +3,8 @@ using DrinkVendingMachine.DTO;
 using DrinkVendingMachine.Models;
 using System.Web.Mvc;
 using System.Linq;
+using System.Web;
+using System.IO;
 
 namespace DrinkVendingMachine.Controllers
 {
@@ -41,43 +43,58 @@ namespace DrinkVendingMachine.Controllers
         }
 
         [HttpPost]
-        public ActionResult Drink(DrinkModel model)
+        public ActionResult Drink(DrinkModel model, HttpPostedFileBase fileUpload)
         {
             DrinkDTO dto = new DrinkDTO()
             {
                 Id = model.Id,
                 Cost = model.Cost,
                 Count = model.Count,
-                Ord = model.Ord
+                Ord = model.Ord,
             };
-            adminService.SaveDrink(dto, null);
+            byte[] image = null;
+            if (fileUpload != null)
+            {
+                using (var binaryReader = new BinaryReader(fileUpload.InputStream))
+                {
+                    image = binaryReader.ReadBytes(fileUpload.ContentLength);
+                }
+            }
+            
+            adminService.SaveDrink(dto, image);
             return View("Index", getAdminModel());
         }
 
-        [HttpPost]
         public ActionResult DeleteDrink(long id)
         {
             adminService.DeleteDrink(id);
             return View("Index", getAdminModel());
         }
-        public ActionResult Coins()
+        public ActionResult Coin(long id)
         {
-            CoinsModel model = new CoinsModel(adminService.GetCoins());
+            CoinDTO dto = adminService.GetCoin(id);
+            CoinModel model = new CoinModel
+            {
+                 Id = dto.Id,
+                 Count = dto.Count,
+                 Denomination = dto.Denomination,
+                 Lock = dto.Lock
+            };
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Coins(CoinsModel model)
+        public ActionResult Coin(CoinModel model)
         {
-            CoinDTO[] dtos = model.Coins
-                .Select(c => new CoinDTO
-                {
-                    Id = c.Id,
-                    Count = c.Count,
-                    Lock = c.Lock,
-                    Denomination = c.Denomination
-                }).ToArray();
-            adminService.UpdateCoins(dtos);
+            CoinDTO dto = new CoinDTO
+            {
+                Id = model.Id,
+                Count = model.Count,
+                Lock = model.Lock,
+                Denomination = model.Denomination
+            };
+
+            adminService.UpdateCoin(dto);
             return View("Index", getAdminModel());
         }
         

@@ -208,11 +208,16 @@
     <Compile Include="Migration\Items\0001\InitialDeployment.cs" />
     <Compile Include="Migration\MigrationRunner.cs" />
     <Compile Include="Migration\MigratorInstaller.cs" />
-    <Compile Include="Models\CoinsModel.cs" />
+    <Compile Include="Models\CoinModel.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Models\DrinkModel.cs" />
     <Compile Include="Models\ShoppingСartModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\DrinkVendingMachine.mdf" />
@@ -228,6 +233,10 @@
     <EmbeddedResource Include="Migration\Items\0001\create-database.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EmbeddedResource Include="Resources\Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -253,6 +262,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\ShoppingСart\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Drink.cshtml" />
+    <Content Include="Views\Admin\Coin.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

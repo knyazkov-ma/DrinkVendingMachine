@@ -1,0 +1,42 @@
+﻿@using DrinkVendingMachine.Models
+@using DrinkVendingMachine.Resources
+@model CoinModel
+
+
+<div class="row">
+    <h1>Монета @if (Model.Id == 0) { <text>[новый]</text> } else {<text>[редактирование]</text>}</h1>
+    
+    <div class="col-md-8">
+        
+        @using (@Html.BeginForm("Coin", "Admin", FormMethod.Post))
+        {
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            @Html.AntiForgeryToken()
+            
+            
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Count)
+                @Html.TextBoxFor(m => m.Count, new { @class = "form-control", required = true, @type = "number" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Lock)
+                @Html.CheckBoxFor(m => m.Lock)
+            </div>
+            
+
+            <div class="row">
+                <div class="col-md-6">
+                    
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-primary" type="submit">@Resource.Action_Save</button>
+                    <a class="btn btn-default" href="@Url.Action("Index", "Admin")">@Resource.Action_Cancel</a>
+                </div>
+            </div>
+
+        }
+
+    </div>
+</div>
