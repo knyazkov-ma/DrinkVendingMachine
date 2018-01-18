@@ -15,7 +15,7 @@ namespace DrinkVendingMachine.Controllers
         private ShoppingСartModel getShoppingСartModel()
         {
             return new ShoppingСartModel(
-                shoppingСartService.GetShowcaseDrinks(),
+                shoppingСartService.GetDrinks(),
                 shoppingСartService.GetCoins(),
                 shoppingСartService.GetSurrender(),
                 shoppingСartService.GetShoppingСartTotalPayment(),
@@ -26,21 +26,24 @@ namespace DrinkVendingMachine.Controllers
         public ActionResult Index()
         {
             shoppingСartService.Init();
-            return View("Index", getShoppingСartModel());
+            return View(getShoppingСartModel());
         }
 
+        [HttpPost]
         public ActionResult SelectDrink(long drinkId)
         {
             shoppingСartService.SelectDrink(drinkId);
             return View("Index", getShoppingСartModel());
         }
 
+        [HttpPost]
         public ActionResult Pay(long coinId)
         {
             shoppingСartService.Pay(coinId);
             return View("Index", getShoppingСartModel());
         }
 
+        [HttpPost]
         public ActionResult Purchase()
         {
             shoppingСartService.Purchase();

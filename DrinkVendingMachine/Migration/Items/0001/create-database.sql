@@ -14,21 +14,12 @@ CREATE TABLE [dbo].[Drink](
 	[Cost] [decimal](18, 2) NOT NULL,
 	[Image] [varbinary](max) NOT NULL,
 	[Ord] [int] NOT NULL,
+	[Count] [int] NOT NULL,
  CONSTRAINT [PK_Drink] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-
-CREATE TABLE [dbo].[DrinkBalance](
-	[Id] [bigint] IDENTITY(100000,1) NOT NULL,
-	[DrinkId] [bigint] NOT NULL,
-	[Count] [int] NOT NULL,
- CONSTRAINT [PK_DrinkBalance] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
 
 CREATE TABLE [dbo].[PaymentCoin](
 	[Id] [bigint] IDENTITY(100000,1) NOT NULL,
@@ -56,11 +47,6 @@ INSERT [dbo].[Coin] ([Id], [Denomination], [Count], [Lock]) VALUES (100002, 5, 2
 INSERT [dbo].[Coin] ([Id], [Denomination], [Count], [Lock]) VALUES (100003, 10, 20, 0)
 SET IDENTITY_INSERT [dbo].[Coin] OFF
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_DrinkBalance_DrinkId] ON [dbo].[DrinkBalance]
-(
-	[DrinkId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-
 CREATE UNIQUE NONCLUSTERED INDEX [IX_PaymentCoin_CoinId] ON [dbo].[PaymentCoin]
 (
 	[CoinId] ASC
@@ -81,15 +67,9 @@ ALTER TABLE [dbo].[Drink] ADD  CONSTRAINT [DF_Drink_Cost]  DEFAULT ((0)) FOR [Co
 
 ALTER TABLE [dbo].[Drink] ADD  CONSTRAINT [DF_Drink_Ord]  DEFAULT ((0)) FOR [Ord]
 
-ALTER TABLE [dbo].[DrinkBalance] ADD  CONSTRAINT [DF_DrinkBalance_Count]  DEFAULT ((1)) FOR [Count]
+ALTER TABLE [dbo].[Drink] ADD  CONSTRAINT [DF_Drink_Count]  DEFAULT ((0)) FOR [Count]
 
 ALTER TABLE [dbo].[PaymentCoin] ADD  CONSTRAINT [DF_PaymentCoin_Count]  DEFAULT ((1)) FOR [Count]
-
-ALTER TABLE [dbo].[DrinkBalance]  WITH CHECK ADD  CONSTRAINT [FK_DrinkBalance_Drink] FOREIGN KEY([DrinkId])
-REFERENCES [dbo].[Drink] ([Id])
-ON DELETE CASCADE
-
-ALTER TABLE [dbo].[DrinkBalance] CHECK CONSTRAINT [FK_DrinkBalance_Drink]
 
 ALTER TABLE [dbo].[PaymentCoin]  WITH CHECK ADD  CONSTRAINT [FK_PaymentCoin_Coin] FOREIGN KEY([CoinId])
 REFERENCES [dbo].[Coin] ([Id])

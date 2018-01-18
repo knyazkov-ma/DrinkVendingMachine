@@ -181,7 +181,6 @@
     <Compile Include="DAL\DbContextInstaller.cs" />
     <Compile Include="DAL\Mapping\SelectedDrinkMapping.cs" />
     <Compile Include="DAL\Mapping\PaymentCoinMapping.cs" />
-    <Compile Include="DAL\Mapping\DrinkBalanceMapping.cs" />
     <Compile Include="DAL\Mapping\DrinkMapping.cs" />
     <Compile Include="DAL\Mapping\CoinMapping.cs" />
     <Compile Include="DataService\DataServiceInstaller.cs" />
@@ -192,13 +191,14 @@
     <Compile Include="DataService\ImageService.cs" />
     <Compile Include="DataService\ShoppingСartService.cs" />
     <Compile Include="DTO\CoinDTO.cs" />
+    <Compile Include="DTO\ShowcaseCoinDTO.cs" />
     <Compile Include="DTO\ImageFileDTO.cs" />
+    <Compile Include="DTO\DrinkDTO.cs" />
     <Compile Include="DTO\ShowcaseDrinkDTO.cs" />
     <Compile Include="DTO\SurrenderCoinDTO.cs" />
     <Compile Include="Entity\BaseEntity.cs" />
     <Compile Include="Entity\Coin.cs" />
     <Compile Include="Entity\Drink.cs" />
-    <Compile Include="Entity\DrinkBalance.cs" />
     <Compile Include="Entity\PaymentCoin.cs" />
     <Compile Include="Entity\SelectedDrink.cs" />
     <Compile Include="Global.asax.cs">
@@ -208,6 +208,9 @@
     <Compile Include="Migration\Items\0001\InitialDeployment.cs" />
     <Compile Include="Migration\MigrationRunner.cs" />
     <Compile Include="Migration\MigratorInstaller.cs" />
+    <Compile Include="Models\CoinsModel.cs" />
+    <Compile Include="Models\AdminModel.cs" />
+    <Compile Include="Models\DrinkModel.cs" />
     <Compile Include="Models\ShoppingСartModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -17,5 +17,7 @@
                 
         public int Ord { get; set; }
 
+        public int Count { get; set; }
+
     }
 }

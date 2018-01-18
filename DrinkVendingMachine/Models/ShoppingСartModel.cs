@@ -7,7 +7,7 @@ namespace DrinkVendingMachine.Models
     {
         public ShoppingСartModel(
             IEnumerable<ShowcaseDrinkDTO> drinks, 
-            IEnumerable<CoinDTO> coins, 
+            IEnumerable<ShowcaseCoinDTO> coins, 
             IEnumerable<SurrenderCoinDTO> surrender,
             int shoppingСartTotalPayment, 
             decimal shoppingСartTotalCost)
@@ -20,7 +20,7 @@ namespace DrinkVendingMachine.Models
         }
 
         public IEnumerable<ShowcaseDrinkDTO> Drinks { get; private set; }
-        public IEnumerable<CoinDTO> Coins { get; private set; }
+        public IEnumerable<ShowcaseCoinDTO> Coins { get; private set; }
 
         public IEnumerable<SurrenderCoinDTO> Surrender { get; private set; }
 

@@ -51,10 +51,10 @@ namespace DrinkVendingMachine.DataService
             dbContext.SaveChanges();
         }
 
-        public IEnumerable<CoinDTO> GetCoins()
+        public IEnumerable<ShowcaseCoinDTO> GetCoins()
         {
             return dbContext.Coins
-                .Select(c => new CoinDTO
+                .Select(c => new ShowcaseCoinDTO
                 {
                     Id = c.Id,
                     Denomination = (int)c.Denomination,
@@ -64,13 +64,12 @@ namespace DrinkVendingMachine.DataService
                 .ToList();
         }
 
-        public IEnumerable<ShowcaseDrinkDTO> GetShowcaseDrinks()
+        public IEnumerable<ShowcaseDrinkDTO> GetDrinks()
         {
             decimal shoppingСartTotalPayment = GetShoppingСartTotalPayment();
 
             IEnumerable<ShowcaseDrinkDTO> drinks =
-                (from d in dbContext.Drinks.OrderBy(t => t.Ord)
-                 join b in dbContext.DrinkBalances on d.Id equals b.DrinkId
+                (from d in dbContext.Drinks.Where(t => t.Count > 0).OrderBy(t => t.Ord)
                  join s in dbContext.SelectedDrinks on d.Id equals s.DrinkId into bs
                  from p in bs.DefaultIfEmpty()
                  select new
@@ -78,7 +77,7 @@ namespace DrinkVendingMachine.DataService
                  {
                      Id = d.Id,
                      Cost = d.Cost,
-                     Count = b.Count,
+                     Count = d.Count,
                      Selected = p != null,
                      CanbeSelected = d.Cost <= shoppingСartTotalPayment
                  }).ToList();
@@ -151,7 +150,7 @@ namespace DrinkVendingMachine.DataService
 
             foreach (var s in dbContext.SelectedDrinks)
             {
-                var d = dbContext.DrinkBalances.FirstOrDefault(r => r.DrinkId == s.DrinkId);
+                var d = dbContext.Drinks.FirstOrDefault(r => r.Id == s.DrinkId);
                 d.Count--;
             }
                         

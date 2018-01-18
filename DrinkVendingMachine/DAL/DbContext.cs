@@ -16,7 +16,6 @@ namespace DrinkVendingMachine.DAL
 
         public DbSet<Coin> Coins { get; set; }
         public DbSet<Drink> Drinks { get; set; }
-        public DbSet<DrinkBalance> DrinkBalances { get; set; }
         public DbSet<PaymentCoin> PaymentCoins { get; set; }
         public DbSet<SelectedDrink> SelectedDrinks { get; set; }
 
